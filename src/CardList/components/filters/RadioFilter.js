@@ -1,4 +1,6 @@
 export default function RadioFilter() {
+    const filterItems = ["$10", "$10-$100", "$100-$500", "$500", "All"];
+
     return (
         <div className="filter-outer">
             <div className="filter">
@@ -7,27 +9,19 @@ export default function RadioFilter() {
                         Multi Range
                     </div>
                 </div>
-                <div className="filter__input-outer">
-                    <input type="radio" id="mr1" name="Multi Range" value="$10" /><label
-                        htmlFor="mr1">$10</label>
-                    <br />
-                </div>
-                <div className="filter__input-outer">
-                    <input type="radio" id="mr2" name="Multi Range" value="$10-$100" /> <label
-                        htmlFor="mr2">$10-$100</label><br />
-                </div>
-                <div className="filter__input-outer">
-                    <input type="radio" id="mr3" name="Multi Range" value="$100-$500" /> <label
-                        htmlFor="mr3">$100-$500</label><br />
-                </div>
-                <div className="filter__input-outer">
-                    <input type="radio" id="mr4" name="Multi Range" value="$500" /> <label
-                        htmlFor="mr4">$500</label><br />
-                </div>
-                <div className="filter__input-outer">
-                    <input type="radio" id="mr5" name="Multi Range" value="all" checked /> <label
-                        htmlFor="mr5">All</label><br />
-                </div>
+
+                {filterItems.map((elem, id) => {
+                    const filterId = `radio${id}`;
+
+                    return (
+                        <div className="filter__input-outer">
+                            <input type="radio" id={filterId} name="Multi Range" value={elem} /><label
+                                htmlFor={filterId}>{elem}</label>
+                            <br />
+                        </div>
+                    );
+                })}
+
             </div>
         </div>
     );

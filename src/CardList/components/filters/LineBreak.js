@@ -1,7 +1,7 @@
 export default function LineBreak() {
     return (
-        <div class="filter__line-outer">
-            <div class="filter__line">
+        <div className="filter__line-outer">
+            <div className="filter__line">
                 <hr />
             </div>
         </div>

@@ -208,23 +208,36 @@
     font-size: 14px;
     line-height: 17px;
     max-width: 1850px;
+    color: rgba(126, 114, 242, 1);
 }
 
 .breadcr-outer {
     margin-bottom: 50px;
 }
 
-.breadcr span {
+.breadcr span, .breadcr a {
     padding-right: 10px;
+}
+
+.breadcr a {
+    text-decoration: none;
+}
+
+.breadcr a:visited {
+    color: rgba(126, 114, 242, 1);
 }
 
 .breadcr__icon {
     color: rgba(126, 114, 242, 1);
 }
 
-#breadcr__shop {
-    color: rgba(126, 114, 242, 1);
+#breadcr-active {
+    color: black;
 }
+
+/* #breadcr__shop {
+    color: rgba(126, 114, 242, 1);
+} */
 
 .fa-angle-double-right {
     font-size: 12px;
@@ -325,7 +338,7 @@
     line-height: 32px;
 }
 
-.filters__btn button {
+.filters__btn button, .wish-list__btn button {
     border: none;
     background-color: rgba(111, 100, 248, 1);
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.13);
@@ -335,6 +348,16 @@
     color: white;
     font-size: 18px;
     line-height: 21px;
+}
+
+.wish-list__btn {
+    width: 100%;
+    padding-bottom: 30px;
+}
+
+.wish-list__btn button {
+    display: block;
+    width: 350px;
 }
 
 
@@ -453,6 +476,14 @@ input[type="checkbox"]:checked + label:after {
     width: 45px;
     height: 40px;
     font-size: 18px;
+    position: relative;
+}
+
+.favorite i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
 
 .search {
@@ -607,6 +638,11 @@ input[type="checkbox"]:checked + label:after {
 .card__wishlist {
     background-color: rgba(237, 237, 237, 1);
     border-radius: 0 0 0 8px;
+}
+
+._card-in-wishlist {
+    background: rgba(111, 100, 248, 1);
+    color: white;
 }
 
 .card__add {

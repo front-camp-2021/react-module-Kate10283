@@ -7,10 +7,11 @@ import {
 } from "react-router-dom";
 import "./styles/reset.css";
 import "./styles/style.css";
+import "./styles/slider.css";
 import CardList from "./CardList/CardList";
 import WishList from "./WishList/WishList";
 import { Provider } from "react-redux";
-import { store } from './store';
+import store from "./store/store";
 
 function App() {
     return (
