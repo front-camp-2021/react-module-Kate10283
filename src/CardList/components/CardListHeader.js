@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function CardListHeader() {
+export default function CardListHeader(props) {
     return (
         <>
             <div className="quantity-outer">
@@ -11,8 +11,10 @@ export default function CardListHeader() {
             </div>
             <div className="search">
                 <form>
-                    <input type="text" placeholder="Search" />
-                    <button type="submit"><i className='fas fa-search'></i></button>
+                    <input id="search-input-id" type="text" placeholder="Search" />
+                    <button type="button" onClick={() => {
+                        props.setSearch(document.getElementById("search-input-id").value);
+                    }}><i className='fas fa-search'></i></button>
                 </form>
             </div>
         </>

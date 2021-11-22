@@ -21,12 +21,11 @@ export default function doubleSlider(props) {
     fillColor();
 
     function slideOne() {
-        console.log(1);
         sliderOne.style.zIndex = '9';
         if (parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= minGap) {
             sliderOne.value = parseInt(sliderTwo.value) - minGap;
         }
-        if (sliderTwo.value == sliderOne.value && parseInt(sliderOne.value) == max) {
+        if (sliderTwo.value === sliderOne.value && parseInt(sliderOne.value) === max) {
             sliderOne.style.zIndex = '10';
         }
         displayValOne.textContent = '$' + sliderOne.value;
@@ -34,12 +33,11 @@ export default function doubleSlider(props) {
     }
     
     function slideTwo() {
-        console.log(2);
         sliderTwo.style.zIndex = '9';
         if (parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= minGap) {
             sliderTwo.value = parseInt(sliderOne.value) + minGap;
         }
-        if (sliderTwo.value == sliderOne.value && parseInt(sliderOne.value) == min) {
+        if (sliderTwo.value === sliderOne.value && parseInt(sliderOne.value) === min) {
             sliderTwo.style.zIndex = '10';
         }
         displayValTwo.textContent = '$' + sliderTwo.value;
@@ -47,7 +45,6 @@ export default function doubleSlider(props) {
     }
     
     function fillColor() {
-        // console.log("fill");
         let percent1 = ((sliderOne.value - min) / (max - min)) * 100;
         let percent2 = ((sliderTwo.value - min) / (max - min)) * 100;
         sliderTrack.style.background = `linear-gradient(to right, #dadae5 ${percent1}%, 

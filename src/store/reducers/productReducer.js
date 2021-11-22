@@ -2,20 +2,22 @@ import { CHANGE_FAVORITE_STATUS, GET_PRODUCTS, RESET_ALL_STATUS } from "../types
 
 const initialState = {
     products: [],
+    productsCount: 0,
     loading: true
 }
 
 export default function (state = initialState, action) {
     switch (action.type) {
         case GET_PRODUCTS:
-            action.payload = action.payload.map((product) => {
+            let data = action.payload.data.map((product) => {
                 product.isFavorite = false;
                 return product;
             });
 
             return {
                 ...state,
-                products: action.payload,
+                products: data,
+                productsCount: action.payload.headers['x-total-count'],
                 loading: false
             };
 

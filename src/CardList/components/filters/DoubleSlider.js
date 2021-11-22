@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import doubleSlider from "../../helpers/doubleSlider";
 
-export default function DoubleSlider({ values }) {
-    const { filterName, min, max, step, clear } = values;
+export default function DoubleSlider({ data }) {
+    const { filterName, min, max, step, clear } = data.values;
+    const { filters, setFilters } = data;
 
     const range1Id = `${filterName}-range1`;
     const range2Id = `${filterName}-range2`;
@@ -11,7 +12,7 @@ export default function DoubleSlider({ values }) {
     const slider2Id = `${filterName}-slider2`;
 
     useEffect(() => {
-        doubleSlider({filterName: filterName});
+        doubleSlider({ filterName });
     }, []);
 
     if (clear) {
@@ -19,7 +20,7 @@ export default function DoubleSlider({ values }) {
         document.getElementById(slider2Id).value = max;
         document.getElementById(range1Id).textContent = '$' + min;
         document.getElementById(range2Id).textContent = '$' + max;
-        doubleSlider({filterName: filterName});
+        doubleSlider({ filterName: filterName });
     }
 
     return (
@@ -39,12 +40,18 @@ export default function DoubleSlider({ values }) {
                 </div>
                 <div className="container">
                     <div id={sliderTrackId} className="slider-track"></div>
-                    <input type="range" id={slider1Id} min={min}
-                        max={max} defaultValue={min}
-                        step={step} />
-                    <input type="range" id={slider2Id} min={min}
-                        max={max} defaultValue={max}
-                        step={step} />
+                    <input type="range" id={slider1Id} min={min} max={max} defaultValue={min} step={step}
+                        onMouseUp={(event) => {
+                            let temp = {};
+                            Object.assign(temp, filters, {minPrice: event.target.value});
+                            setFilters(temp);
+                        }} />
+                    <input type="range" id={slider2Id} min={min} max={max} defaultValue={max} step={step}
+                        onMouseUp={(event) => {
+                            let temp = {};
+                            Object.assign(temp, filters, {maxPrice: event.target.value});
+                            setFilters(temp);
+                        }} />
                 </div>
             </div>
         </div>

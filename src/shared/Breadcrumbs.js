@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function Beadcrumbs({ pages }) {
     const { notActivePages, active } = pages;
 
@@ -7,12 +9,12 @@ export default function Beadcrumbs({ pages }) {
                 <a><i className='fas fa-home breadcr__icon'></i></a>
                 <span><i className="fa fa-angle-double-right"></i></span>
 
-                {notActivePages.length > 0 ? notActivePages.map(elem => {
+                {notActivePages.length > 0 ? notActivePages.map((elem, id) => {
                     return (
-                        <>
+                        <React.Fragment key={id}>
                             <a href="#">{elem}</a>
                             <span><i className="fa fa-angle-double-right"></i></span>
-                        </>
+                        </React.Fragment>
                     );
                 }) : null}
 

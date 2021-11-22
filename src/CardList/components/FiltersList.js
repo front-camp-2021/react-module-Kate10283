@@ -5,16 +5,17 @@ import DoubleSlider from "./filters/DoubleSlider";
 import LineBreak from "./filters/LineBreak";
 import RadioFilter from "./filters/RadioFilter";
 
-export default function FiltersList() {
+export default function FiltersList({ data }) {
     const [categories, setCategories] = useState([]);
     const [brands, setBrands] = useState([]);
     const [doubleSliderValues, setDoubleSliderValues] = useState({
-        filterName: 'Price', 
-        min: 0, 
-        max: 85000, 
+        filterName: 'Price',
+        min: 0,
+        max: 85000,
         step: 1,
         clear: false
     });
+    const { filters, setFilters } = data;
 
     useEffect(() => {
         axios.get("http://localhost:3001/categories")
@@ -38,12 +39,17 @@ export default function FiltersList() {
         }
 
         setDoubleSliderValues({
-            filterName: 'Price', 
-            min: 0, 
-            max: 85000, 
+            filterName: 'Price',
+            min: 0,
+            max: 85000,
             step: 1,
             clear: true
         });
+
+        setFilters({
+            categories: [],
+            brands: []
+        })
     }
 
     return (
@@ -58,13 +64,19 @@ export default function FiltersList() {
             <div className="filters__block-outer">
                 <div className="filters__block">
                     <div className="filters__block-inner">
-                        <DoubleSlider values={doubleSliderValues} />
+                        <DoubleSlider data={{ values: doubleSliderValues, filters, setFilters }} />
                         <LineBreak />
-                        <RadioFilter />
+                        <RadioFilter data={{ filters, setFilters }} />
                         <LineBreak />
-                        <CheckboxFilter value={{ filterName: 'Category', filterItems: categories }} />
+                        <CheckboxFilter value={{
+                            filterName: 'Category', filterItems: categories,
+                            filters, setFilters
+                        }} />
                         <LineBreak />
-                        <CheckboxFilter value={{ filterName: 'Brand', filterItems: brands }} />
+                        <CheckboxFilter value={{
+                            filterName: 'Brand', filterItems: brands,
+                            filters, setFilters
+                        }} />
                     </div>
                 </div>
             </div>

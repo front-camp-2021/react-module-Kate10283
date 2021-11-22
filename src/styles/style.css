@@ -290,7 +290,7 @@
 }
 
 .filters__block-outer {
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
 }
 
 .filters__block-inner {
@@ -338,6 +338,10 @@
     line-height: 32px;
 }
 
+.filters__btn {
+    margin-top: 14px;
+}
+
 .filters__btn button, .wish-list__btn button {
     border: none;
     background-color: rgba(111, 100, 248, 1);
@@ -348,6 +352,7 @@
     color: white;
     font-size: 18px;
     line-height: 21px;
+    margin-top: 16px;
 }
 
 .wish-list__btn {
@@ -680,7 +685,7 @@ input[type="checkbox"]:checked + label:after {
     border-radius: 20px;
     width: 400px;
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
     padding: 0 10px;
 }
 
@@ -694,7 +699,7 @@ input[type="checkbox"]:checked + label:after {
     line-height: 21px;
 }
 
-.pagination .current {
+.pagination__nums #pag-active {
     background-color: rgba(111, 100, 248, 1);
     color: white;
 }

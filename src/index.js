@@ -4,7 +4,7 @@ import App from "./App";
 import { getProducts } from "./store/actions/productsActions";
 import store from "./store/store";
 
-store.dispatch(getProducts);
+store.dispatch(getProducts());
 
 ReactDOM.render(
   <App />,
