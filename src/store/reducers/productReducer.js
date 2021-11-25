@@ -34,10 +34,7 @@ export default function (state = initialState, action) {
         case RESET_ALL_STATUS:
             return {
                 ...state,
-                products: state.products.map((product) => {
-                    product.isFavorite = false;
-                    return product;
-                })
+                products: { ...state.products, isFavorite: false }
             };
 
         default: {

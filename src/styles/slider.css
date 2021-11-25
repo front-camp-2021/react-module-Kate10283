@@ -12,6 +12,11 @@
     width: 100%;
 }
 
+.slider span {
+    font-size: 14px;
+    line-height: 32px;
+}
+
 .slider-block {
     display: flex;
     align-items: center;

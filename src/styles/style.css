@@ -313,8 +313,11 @@
 }
 
 .filter__input-outer {
-    padding-bottom: 15px;
-    
+    margin-bottom: 15px;
+    position: relative;
+    height: 30px;
+    display: flex;
+    align-items: center;
 }
 
 .filter__line {
@@ -333,9 +336,13 @@
     line-height: 32px;
 }
 
-.filter span {
+.filter__count {
     font-size: 14px;
     line-height: 32px;
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translate(-50%, -50%);
 }
 
 .filters__btn {

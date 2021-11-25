@@ -8,33 +8,82 @@ import CardListHeader from "./components/CardListHeader";
 import CardView from "../shared/CardView";
 import FiltersList from "./components/FiltersList";
 import { getProducts } from "../store/actions/productsActions"
+import axios from "axios";
+import toCorrectString from "./helpers/toCorrectString";
 
 export default function CardList() {
     const { products, productsCount } = useSelector(selectProducts);
+    const [categories, setCategories] = useState([]);
+    const [brands, setBrands] = useState([]);
     const [search, setSearch] = useState('');
     const [filters, setFilters] = useState({
-        categories: [],
-        brands: []
+        category: [],
+        brand: []
     });
     const [page, setPage] = useState(1);
     const dispatch = useDispatch();
+    const [productsCountByCategories, setProductsCountByCategories] = useState({});
+    const [productsCountByBrands, setProductsCountByBrands] = useState({});
+
+    useEffect(() => {
+        axios.get("http://localhost:3001/categories")
+            .then(res => {
+                setCategories(res.data);
+            });
+
+        axios.get("http://localhost:3001/brands")
+            .then(res => {
+                setBrands(res.data);
+            });
+    }, []);
+
 
     useEffect(() => {
         dispatch(getProducts({
-            brand: filters.brands, category: filters.categories, minPrice: filters.minPrice,
+            brand: filters.brand, category: filters.category, minPrice: filters.minPrice,
             maxPrice: filters.maxPrice, minRating: filters.minRating, maxRating: filters.maxRating,
             search, page
         }));
-    }, [search, filters, page]);
+    }, [search, filters, page, dispatch]);
+
+    useEffect(() => {
+        setPage(1);
+    }, [search, filters]);
+
+    useEffect(() => {
+        const productsCountByCategories = {};
+
+        categories.forEach((elem) => {
+            axios.get(`http://localhost:3001/products?category=${toCorrectString(elem)}`)
+                .then(res => {
+                    productsCountByCategories[toCorrectString(elem)] = res.data.length;
+                });
+        });
+
+        setProductsCountByCategories(productsCountByCategories);
+    }, [categories]);
+
+    useEffect(() => {
+        const productsCountByBrands = {};
+
+        brands.forEach((elem) => {
+            axios.get(`http://localhost:3001/products?brand=${toCorrectString(elem)}`)
+                .then(res => {
+                    productsCountByBrands[toCorrectString(elem)] = res.data.length;
+                });
+        });
+
+        setProductsCountByBrands(productsCountByBrands);
+    }, [brands]);
 
     return (
         <>
             <Header />
             <Breadcrumbs pages={{ notActivePages: ['eCommerce'], active: 'Electronics' }} />
             <div className="grid-container-row">
-                <FiltersList data={{ filters, setFilters }} />
+                <FiltersList data={{ categories, brands, filters, setFilters, productsCountByCategories, productsCountByBrands }} />
                 <div className="flex-container-column">
-                    <CardListHeader setSearch={setSearch} />
+                    <CardListHeader data={{ setSearch, productsCount }} />
 
                     {products.length > 0 ?
                         <div className="cards">

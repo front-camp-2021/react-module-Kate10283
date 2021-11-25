@@ -31,7 +31,7 @@ export default function doubleSlider(props) {
         displayValOne.textContent = '$' + sliderOne.value;
         fillColor();
     }
-    
+
     function slideTwo() {
         sliderTwo.style.zIndex = '9';
         if (parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= minGap) {
@@ -43,7 +43,7 @@ export default function doubleSlider(props) {
         displayValTwo.textContent = '$' + sliderTwo.value;
         fillColor();
     }
-    
+
     function fillColor() {
         let percent1 = ((sliderOne.value - min) / (max - min)) * 100;
         let percent2 = ((sliderTwo.value - min) / (max - min)) * 100;

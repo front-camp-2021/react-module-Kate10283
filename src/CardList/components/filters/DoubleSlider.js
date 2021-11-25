@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import doubleSlider from "../../helpers/doubleSlider";
 
 export default function DoubleSlider({ data }) {
-    const { filterName, min, max, step, clear } = data.values;
-    const { filters, setFilters } = data;
+    const { filters, setFilters, doubleSliderValues, setDoubleSliderValues } = data;
+    const { filterName, min, max, step, clear } = doubleSliderValues;
 
     const range1Id = `${filterName}-range1`;
     const range2Id = `${filterName}-range2`;
@@ -21,6 +21,9 @@ export default function DoubleSlider({ data }) {
         document.getElementById(range1Id).textContent = '$' + min;
         document.getElementById(range2Id).textContent = '$' + max;
         doubleSlider({ filterName: filterName });
+        const temp = {};
+        Object.assign(temp, doubleSliderValues, { clear: false });
+        setDoubleSliderValues(temp);
     }
 
     return (

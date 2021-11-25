@@ -1,13 +1,11 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CheckboxFilter from "./filters/CheckboxFilter";
 import DoubleSlider from "./filters/DoubleSlider";
 import LineBreak from "./filters/LineBreak";
 import RadioFilter from "./filters/RadioFilter";
 
 export default function FiltersList({ data }) {
-    const [categories, setCategories] = useState([]);
-    const [brands, setBrands] = useState([]);
+    const { categories, brands, filters, setFilters, productsCountByCategories, productsCountByBrands } = data;
     const [doubleSliderValues, setDoubleSliderValues] = useState({
         filterName: 'Price',
         min: 0,
@@ -15,29 +13,8 @@ export default function FiltersList({ data }) {
         step: 1,
         clear: false
     });
-    const { filters, setFilters } = data;
-
-    useEffect(() => {
-        axios.get("http://localhost:3001/categories")
-            .then(res => {
-                setCategories(res.data);
-            });
-
-        axios.get("http://localhost:3001/brands")
-            .then(res => {
-                setBrands(res.data);
-            });
-    }, []);
 
     function clearFilters() {
-        const filters = document.querySelectorAll('.filters input:checked');
-
-        if (filters.length !== 0) {
-            filters.forEach(elem => {
-                elem.checked = false;
-            })
-        }
-
         setDoubleSliderValues({
             filterName: 'Price',
             min: 0,
@@ -47,8 +24,8 @@ export default function FiltersList({ data }) {
         });
 
         setFilters({
-            categories: [],
-            brands: []
+            category: [],
+            brand: []
         })
     }
 
@@ -64,18 +41,18 @@ export default function FiltersList({ data }) {
             <div className="filters__block-outer">
                 <div className="filters__block">
                     <div className="filters__block-inner">
-                        <DoubleSlider data={{ values: doubleSliderValues, filters, setFilters }} />
+                        <DoubleSlider data={{ doubleSliderValues, setDoubleSliderValues, filters, setFilters }} />
                         <LineBreak />
                         <RadioFilter data={{ filters, setFilters }} />
                         <LineBreak />
                         <CheckboxFilter value={{
                             filterName: 'Category', filterItems: categories,
-                            filters, setFilters
+                            filters, setFilters, productsCountByCategories
                         }} />
                         <LineBreak />
                         <CheckboxFilter value={{
                             filterName: 'Brand', filterItems: brands,
-                            filters, setFilters
+                            filters, setFilters, productsCountByBrands
                         }} />
                     </div>
                 </div>
