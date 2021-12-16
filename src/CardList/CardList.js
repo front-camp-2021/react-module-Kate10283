@@ -53,27 +53,29 @@ export default function CardList() {
     useEffect(() => {
         const productsCountByCategories = {};
 
-        categories.forEach((elem) => {
-            axios.get(`http://localhost:3001/products?category=${toCorrectString(elem)}`)
-                .then(res => {
-                    productsCountByCategories[toCorrectString(elem)] = res.data.length;
+        Promise.all(categories.map((category) =>
+            axios.get(`http://localhost:3001/products?category=${toCorrectString(category)}`)))
+            .then(res => {
+                res.forEach((item, i) => {
+                    productsCountByCategories[toCorrectString(categories[i])] = item.data.length;
                 });
-        });
+                setProductsCountByCategories(productsCountByCategories);
+            });
 
-        setProductsCountByCategories(productsCountByCategories);
     }, [categories]);
 
     useEffect(() => {
         const productsCountByBrands = {};
 
-        brands.forEach((elem) => {
-            axios.get(`http://localhost:3001/products?brand=${toCorrectString(elem)}`)
-                .then(res => {
-                    productsCountByBrands[toCorrectString(elem)] = res.data.length;
+        Promise.all(brands.map((brand) =>
+            axios.get(`http://localhost:3001/products?brand=${toCorrectString(brand)}`)))
+            .then(res => {
+                res.forEach((item, i) => {
+                    productsCountByBrands[toCorrectString(brands[i])] = item.data.length;
                 });
-        });
+                setProductsCountByBrands(productsCountByBrands);
+            });
 
-        setProductsCountByBrands(productsCountByBrands);
     }, [brands]);
 
     return (
